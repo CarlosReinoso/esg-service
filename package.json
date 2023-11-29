@@ -1,19 +1,19 @@
 {
-	"name": "esg-service",
-	"version": "1.0.0",
-	"description": "Express Hello World on Render",
-	"main": "app.js",
-	"license": "MIT",
-	"private": true,
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"dotenv": "^16.3.1",
-		"express": "^4.18.2",
-		"mysql2": "^3.6.5"
-	},
-	"engines": {
-		"node": ">=14"
-	}
+  "name": "esg-service",
+  "version": "1.0.0",
+  "description": "Express Hello World on Render",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node init && node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5"
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }
