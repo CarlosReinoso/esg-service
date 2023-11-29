@@ -13,8 +13,13 @@ const connection = mysql.createConnection(process.env.DATABASE_URL)
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS my_table (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    age INT
+    first_name VARCHAR(255) NOT NULL,	
+    last_name	VARCHAR(255) NOT NULL,
+    amount_spent INT,
+    date_created DATE,
+    email	VARCHAR(255) NOT NULL,
+    enrollments	INT,
+    enrollments_list VARCHAR(255) NOT NULL,
   )
 `;
 
