@@ -1,13 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 3000;
-const mysql = require("mysql2");
-require("dotenv").config();
-const importScript = require("./scripts/importScript");
-const createUsersTable = require("./database/createUsersTable");
-const selectTable = require("./database/selectTable");
-const deleteTable = require("./database/deleteTable");
-const createUsersCouponsTable = require("./database/createUsersCouponsTable");
+// const importScript = require("./scripts/importScript");
+// const createUsersTable = require("./database/createUsersTable");
+// const deleteTable = require("./database/deleteTable");
+// const createUsersCouponsTable = require("./database/createUsersCouponsTable");
+// const selectTable = require("./database/selectTable");
 
 // deleteTable()
 

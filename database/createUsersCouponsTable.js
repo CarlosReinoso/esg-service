@@ -1,6 +1,19 @@
-require('dotenv').config()
-const mysql = require('mysql2')
-const connection = mysql.createConnection(process.env.DATABASE_URL)
+const createDatabaseConnection = require("../scripts/connectToDatabase");
+
+const connection = createDatabaseConnection();
+
+const createUsersTableQuery = `
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  amount_spent INT,
+  date_created DATE,
+  email VARCHAR(255) NOT NULL,
+  enrollments INT,
+  enrollments_list VARCHAR(2000) NOT NULL
+)
+`;
 
 async function createUsersCouponsTable() {
   connection.connect((err) => {
