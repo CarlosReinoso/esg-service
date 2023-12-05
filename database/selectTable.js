@@ -1,27 +1,16 @@
-require('dotenv').config()
-const mysql = require('mysql2')
-const connection = mysql.createConnection(process.env.DATABASE_URL)
+const connection = require("../scripts/connectToDatabase");
 
-async function importScript() {
-  connection.connect((err) => {
-    if (err) {
-      console.error("Error connecting to database:", err);
-      return;
-    }
-    console.log("Connected to database");
-
-    const selectAllQuery = "SELECT * FROM users";
-
-    connection.query(selectAllQuery, (err, results) => {
-      if (err) {
-        console.error("Error selecting data:", err);
-      } else {
-        console.log("Selected data:", results);
-      }
-
-      connection.end();
-    });
-  });
+async function selectTable(table) {
+  try {
+    const select = `SELECT * FROM ??`;
+    const [rows, fields] = await connection.query(select, [table]);
+    console.log("🚀 ~ file: selectTable.js:8 ~ selectTable ~ fields:", fields)
+    console.log("🚀 ~ file: selectTable.js:8 ~ selectTable ~ rows:", rows)
+    return rows;
+  } catch (error) {
+    console.error("Error executing select query:", error);
+    throw error; // Re-throw the error to propagate it to the caller
+  }
 }
 
-module.exports = importScript;
+module.exports = selectTable;
