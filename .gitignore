@@ -6,3 +6,5 @@ node_modules/
 
 # Ignore CSV files
 users_table.csv
+
+oauth2_secret.json

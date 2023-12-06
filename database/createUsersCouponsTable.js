@@ -1,7 +1,12 @@
 const connection = require("../scripts/connectToDatabase");
 const { createUsersCouponsTableQuery } = require("../lib/queries");
 const axios = require("../lib/axiosConfig");
-const formatDate = require("../lib/formatDate");
+const {
+  formatDate,
+  sixMonthsLater,
+  oneWeekBeforeExpires,
+  twoWeeksBeforeExpires,
+} = require("../lib/formatDate");
 
 async function createTable() {
   try {
@@ -31,22 +36,35 @@ async function createUsersCouponsTable() {
 
       allOrders = allOrders.concat(orders);
 
-      currentPage = response.data.meta.pagination.next_page;
+      // currentPage = response.data.meta.pagination.next_page;
+      currentPage = null;
       console.log("Current Page:", currentPage);
     } while (currentPage);
 
     for (const order of allOrders) {
       if (isValidCoupon(order.coupon_code) && order.user_email != "(deleted)") {
         const insertQuery = `
-          INSERT INTO users_coupons (full_name, email, coupon_code, created_at)
-          VALUES (?, ?, ?, ?)
+          INSERT INTO dev_users_coupons (
+            full_name, 
+            email, 
+            coupon_code, 
+            created_at, 
+            expiration_date,
+            reminder_2_weeks,
+            reminder_1_week)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
+
+        const date = order.created_at;
 
         const values = [
           order.user_name,
-          order.user_email,
+          "jrp.carlos@hotmail.com",
           order.coupon_code,
-          formatDate(order.created_at),
+          formatDate(date),
+          sixMonthsLater(date),
+          twoWeeksBeforeExpires(date),
+          oneWeekBeforeExpires(date),
         ];
 
         try {
