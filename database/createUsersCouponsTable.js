@@ -1,5 +1,5 @@
 const connection = require("../scripts/connectToDatabase");
-const { createUsersCouponsTableQuery } = require("../lib/queries");
+const { createUsersCouponsTableQuery } = require("../lib/queries/queries");
 const axios = require("../lib/axiosConfig");
 const {
   formatDate,
@@ -8,6 +8,7 @@ const {
   twoWeeksBeforeExpires,
 } = require("../lib/formatDate");
 const createTable = require("./createTable");
+const { orders } = require("../lib/queries/insert");
 
 const isValidCoupon = (couponCode) => {
   const validCoupons = ["besg202275", "90esgbeca", "besg20211125"];
@@ -35,18 +36,7 @@ async function createUsersCouponsTable() {
 
     for (const order of allOrders) {
       if (isValidCoupon(order.coupon_code) && order.user_email != "(deleted)") {
-        const insertQuery = `
-          INSERT INTO dev_users_coupons (
-            full_name, 
-            email, 
-            coupon_code, 
-            created_at, 
-            expiration_date,
-            reminder_2_weeks,
-            reminder_1_week)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
-        `;
-
+       
         const date = order.created_at;
 
         const values = [
@@ -60,7 +50,7 @@ async function createUsersCouponsTable() {
         ];
 
         try {
-          await connection.query(insertQuery, values);
+          await connection.query(orders, values);
           console.log("Data inserted into users_coupons table:", values);
         } catch (error) {
           console.error(

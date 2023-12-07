@@ -3,13 +3,11 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const mainRoutes = require("./routes");
+const publicRoutes = require("./routes/public/index");
 const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 
-app.use("/status", (req, res) => {
-  console.log("🚀 /hello endpoint hit");
-  res.status(200).send("App is running");
-});
+app.use("/", publicRoutes);
 
 app.use(apiKeyMiddleware, apiLimiter);
 
