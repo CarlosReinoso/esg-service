@@ -7,15 +7,7 @@ const {
   oneWeekBeforeExpires,
   twoWeeksBeforeExpires,
 } = require("../lib/formatDate");
-
-async function createTable() {
-  try {
-    await connection.query(createUsersCouponsTableQuery);
-    console.log("Created coupons table");
-  } catch (error) {
-    console.error("Error creating table:", error);
-  }
-}
+const createTable = require("./createTable");
 
 const isValidCoupon = (couponCode) => {
   const validCoupons = ["besg202275", "90esgbeca", "besg20211125"];
@@ -24,7 +16,7 @@ const isValidCoupon = (couponCode) => {
 
 async function createUsersCouponsTable() {
   try {
-    await createTable(); // Ensure the table exists
+    await createTable(createUsersCouponsTableQuery); // Ensure the table exists
 
     let allOrders = [];
     let currentPage = 1;

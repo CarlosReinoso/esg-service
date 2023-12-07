@@ -19,10 +19,10 @@ async function insertToTable() {
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const date = "2023-06-20T00:00:00.000Z";
+  const date = "2023-06-14T00:00:00.000Z";
 
   const values = [
-    "Two Weeks20-06-23",
+    "One Week",
     "jrp.carlos@hotmail.com",
     "besg202275",
     formatDate(date),

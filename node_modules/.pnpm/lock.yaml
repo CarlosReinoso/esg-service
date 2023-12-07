@@ -5,11 +5,11 @@ specifiers:
   csv-parser: ^3.0.0
   dotenv: ^16.3.1
   express: ^4.18.2
+  express-rate-limit: ^7.1.5
   fs: 0.0.1-security
   google-auth-library: ^9.4.1
   googleapis: ^129.0.0
   mysql2: ^3.6.5
-  node-cron: ^3.0.3
   nodemailer: ^6.9.7
   nodemon: ^3.0.2
 
@@ -18,11 +18,11 @@ dependencies:
   csv-parser: 3.0.0
   dotenv: 16.3.1
   express: 4.18.2
+  express-rate-limit: 7.1.5_express@4.18.2
   fs: 0.0.1-security
   google-auth-library: 9.4.1
   googleapis: 129.0.0
   mysql2: 3.6.5
-  node-cron: 3.0.3
   nodemailer: 6.9.7
   nodemon: 3.0.2
 
@@ -290,6 +290,15 @@ packages:
   /etag/1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /express-rate-limit/7.1.5_express@4.18.2:
+    resolution: {integrity: sha512-/iVogxu7ueadrepw1bS0X0kaRC/U0afwiYRSLg68Ts+p4Dc85Q5QKsOnPS/QUjPMHvOJQtBDrZgvkOzf8ejUYw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: 4 || 5 || ^5.0.0-beta.1
+    dependencies:
+      express: 4.18.2
     dev: false
 
   /express/4.18.2:
@@ -737,13 +746,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /node-cron/3.0.3:
-    resolution: {integrity: sha512-dOal67//nohNgYWb+nWmg5dkFdIwDm8EpeGYMekPMrngV3637lqnX0lbUcCtgibHTz6SEz7DAIjKvKDFYCnO1A==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      uuid: 8.3.2
-    dev: false
-
   /node-fetch/2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
     engines: {node: 4.x || >=6.0.0}
@@ -1006,11 +1008,6 @@ packages:
   /utils-merge/1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
-    dev: false
-
-  /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
-    hasBin: true
     dev: false
 
   /uuid/9.0.1:
