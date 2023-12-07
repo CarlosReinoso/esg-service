@@ -9,6 +9,6 @@ const apiLimiter = require("../middleware/rateLimit");
 
 // Use individual routes
 router.use("/", mainRoutes);
-router.use("/", apiKeyMiddleware, apiLimiter, cronJobRoutes);
+router.use("/", apiKeyMiddleware, cronJobRoutes);
 
 module.exports = router;

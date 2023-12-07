@@ -30,10 +30,10 @@ router.get("/cron-subsciption-expires", async (req, res) => {
         [currentDateOnly]
       );
     } else {
-      res.status(200).send("Cron job already executed today.")
+      return res.send("Cron job already executed today.")
     }
 
-    res.status(200).send("Cron job executed successfully.");
+    res.send("Cron job executed successfully.");
   } catch (error) {
     console.error("Error executing cron job:", error);
     res.status(500).send("Internal Server Error");
