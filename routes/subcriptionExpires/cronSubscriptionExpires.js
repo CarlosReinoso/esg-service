@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../scripts/connectToDatabase");
+const connection = require("../../scripts/connectToDatabase");
+const { currentDateOnly } = require("../../util/currentaDate");
 
-router.get("/cron-subsciption-expires", async (req, res) => {
+router.get("/cron-subscription-expires", async (req, res) => {
   try {
-    const currentDate = new Date();
-    const currentDateOnly = new Date(currentDate.toISOString().split("T")[0]);
+   
 
     // Check if the cron job has already been executed today
     const [statusRows] = await connection.query(
@@ -30,7 +30,7 @@ router.get("/cron-subsciption-expires", async (req, res) => {
         [currentDateOnly]
       );
     } else {
-      return res.send("Cron job already executed today.")
+      return res.send("Cron job already executed today.");
     }
 
     res.send("Cron job executed successfully.");

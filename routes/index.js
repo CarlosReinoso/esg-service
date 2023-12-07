@@ -3,12 +3,13 @@ const router = express.Router();
 
 // Import individual route files
 const mainRoutes = require("./main");
-const cronJobRoutes = require("./cronSubscriptionExpires");
-const apiKeyMiddleware = require("../middleware/apiKey");
-const apiLimiter = require("../middleware/rateLimit");
+const cronJobRoutes = require("./subcriptionExpires/cronSubscriptionExpires");
+const subscriptionExpires = require("./subcriptionExpires/subscriptionExpires");
+const todayExpirationEmails = require("./subcriptionExpires/todayExpirationEmails");
 
-// Use individual routes
 router.use("/", mainRoutes);
-router.use("/", apiKeyMiddleware, cronJobRoutes);
+router.use("/", cronJobRoutes);
+router.use("/", subscriptionExpires);
+router.use("/", todayExpirationEmails);
 
 module.exports = router;
