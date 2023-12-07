@@ -31,6 +31,7 @@ const port = 3000;
 // });
 
 app.get("/", (req, res) => {
+  console.log("🚀 CRON JOB");
   res.send("Hello World!");
 });
 
