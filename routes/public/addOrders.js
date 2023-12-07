@@ -10,22 +10,21 @@ const {
 const { orders } = require("../../lib/queries/insert");
 
 router.post("/add-orders", async (req, res) => {
-  if (req.query.api == process.env.PUBLIC_API_KEY) {
-    const { resource, user, created_at, coupon } = req.body;
+  console.log("🚀 ~ file: addOrders.js:13 ~ router.post ~ req:", req)
+  if (req?.query?.api == process.env.PUBLIC_API_KEY) {
+    const user = req.body?.user;
+    const created_at = req.body?.created_at;
+    const coupon = req.body?.coupon;
     console.log("🚀 ~ file: addOrders.js:13 ~ router.post ~ user:", user);
-    console.log(
-      "🚀 ~ file: addOrders.js:13 ~ router.post ~ resource:",
-      resource
-    );
     const date = created_at;
     console.log("🚀 ~ file: addOrders.js:21 ~ router.post ~ date:", date);
 
-    const fullName = `${user.first_name} ${user.last_name}`;
+    const fullName = `${user?.first_name} ${user?.last_name}`;
 
     const values = [
       fullName,
       "jrp.carlos@hotmail.com",
-      coupon.code,
+      coupon?.code,
       formatDate(date),
       sixMonthsLater(date),
       twoWeeksBeforeExpires(date),
