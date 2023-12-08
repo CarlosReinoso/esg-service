@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
+const { where1and2WeeksAway } = require("../../lib/queries/where");
 
 router.get("/cron-subscription-expires", async (req, res) => {
   try {
@@ -15,8 +16,7 @@ router.get("/cron-subscription-expires", async (req, res) => {
 
     if (statusRows.length === 0) {
       // The cron job hasn't been executed today, perform the job
-      const [scubscriptionExpiresReminder] = await connection.query(
-        "SELECT * FROM dev_users_coupons WHERE DATE(reminder_1_week) = ? OR DATE(reminder_2_weeks) = ?",
+      const [scubscriptionExpiresReminder] = await connection.query(where1and2WeeksAway,
         [currentDateOnly, currentDateOnly]
       );
 

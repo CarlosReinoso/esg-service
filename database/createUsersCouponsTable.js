@@ -29,19 +29,17 @@ async function createUsersCouponsTable() {
 
       allOrders = allOrders.concat(orders);
 
-      // currentPage = response.data.meta.pagination.next_page;
-      currentPage = null;
+      currentPage = response.data.meta.pagination.next_page;
       console.log("Current Page:", currentPage);
     } while (currentPage);
 
     for (const order of allOrders) {
       if (isValidCoupon(order.coupon_code) && order.user_email != "(deleted)") {
-       
         const date = order.created_at;
 
         const values = [
           order.user_name,
-          "jrp.carlos@hotmail.com",
+          order.user_email,
           order.coupon_code,
           formatDate(date),
           sixMonthsLater(date),
@@ -64,5 +62,5 @@ async function createUsersCouponsTable() {
     console.error("Error:", error);
   }
 }
-
+createUsersCouponsTable();
 module.exports = createUsersCouponsTable;

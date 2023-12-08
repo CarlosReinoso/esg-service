@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
+const { where1and2WeeksAway } = require("../../lib/queries/where");
 
 router.get("/today-expiration-emails", async (req, res) => {
   try {
-    const [scubscriptionExpiresReminder] = await connection.query(
-        "SELECT * FROM dev_users_coupons WHERE DATE(reminder_1_week) = ? OR DATE(reminder_2_weeks) = ?",
+    const [scubscriptionExpiresReminder] = await connection.query(where1and2WeeksAway,
         [currentDateOnly, currentDateOnly]
       );
 
