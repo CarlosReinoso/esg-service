@@ -8,6 +8,7 @@ const {
   oneWeekBeforeExpires,
 } = require("../../lib/formatDate");
 const { orders } = require("../../lib/queries/insert");
+const currentConfig = require("../../util/config");
 
 router.post("/add-orders", async (req, res) => {
   if (req?.query?.api == process.env.PUBLIC_API_KEY) {
@@ -15,7 +16,7 @@ router.post("/add-orders", async (req, res) => {
     const payload = req.body?.payload;
     const user = payload?.user;
     const created_at = body?.created_at;
-    const couponCode = payload.coupon?.code;
+    const couponCode = payload?.coupon?.code;
     const date = created_at;
     const email = user?.email;
 
@@ -32,10 +33,16 @@ router.post("/add-orders", async (req, res) => {
     ];
     try {
       await connection.query(orders, values);
-      console.log("Data inserted into users_coupons table:", values);
+      console.log(
+        `Data inserted into ${currentConfig.database.usersCoupons} table:`,
+        values
+      );
       return res.status(200).send("order added to db");
     } catch (error) {
-      console.error("Error inserting data into users_coupons table:", error);
+      console.error(
+        `Error inserting data into ${currentConfig.database.usersCoupons} table:`,
+        error
+      );
       return res.status(500).send("Internal Server Error");
     }
   } else {
