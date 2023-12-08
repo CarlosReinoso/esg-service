@@ -3,12 +3,10 @@ const router = express.Router();
 const connection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
 const { where1and2WeeksAway } = require("../../lib/queries/where");
-const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail")
+const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail");
 
 router.get("/cron-subscription-expires", async (req, res) => {
   try {
-   
-
     // Check if the cron job has already been executed today
     const [statusRows] = await connection.query(
       "SELECT * FROM cron_execution_status WHERE executed_date = ?",
@@ -17,7 +15,8 @@ router.get("/cron-subscription-expires", async (req, res) => {
 
     if (statusRows.length === 0) {
       // The cron job hasn't been executed today, perform the job
-      const [scubscriptionExpiresReminder] = await connection.query(where1and2WeeksAway,
+      const [scubscriptionExpiresReminder] = await connection.query(
+        where1and2WeeksAway,
         [currentDateOnly, currentDateOnly]
       );
 
@@ -27,8 +26,8 @@ router.get("/cron-subscription-expires", async (req, res) => {
 
       // Update the execution status in the table
       await connection.query(
-        "INSERT INTO cron_execution_status (executed_date, executed_count) VALUES (?, 1)",
-        [currentDateOnly]
+        "INSERT INTO cron_execution_status (executed_date, executed_count, emails_sent) VALUES (?, 1, ?)",
+        [currentDateOnly, scubscriptionExpiresReminder.length]
       );
     } else {
       return res.send("Cron job already executed today.");

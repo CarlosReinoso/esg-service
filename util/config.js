@@ -5,11 +5,13 @@ const config = {
   dev: {
     database: {
       usersCoupons: "dev_users_coupons",
+      cronExecutionStatus: "cron_execution_status",
     },
   },
   prod: {
     database: {
       usersCoupons: "users_coupons",
+      cronExecutionStatus: "cron_execution_status",
     },
   },
 };

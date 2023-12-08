@@ -15,5 +15,5 @@ async function selectTable(table) {
   }
 }
 
-// selectTable(config.database.usersCoupons)
+// selectTable(config.database.cronExecutionStatus)
 module.exports = selectTable;
