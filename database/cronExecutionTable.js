@@ -1,4 +1,4 @@
-const { cronExecutionTableQuery } = require("../lib/queries");
+const { cronExecutionTableQuery } = require("../lib/queries/queries");
 const createTable = require("./createTable");
 
 async function cronExecutionTable() {

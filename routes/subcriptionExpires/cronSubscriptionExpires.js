@@ -3,6 +3,7 @@ const router = express.Router();
 const connection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
 const { where1and2WeeksAway } = require("../../lib/queries/where");
+const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail")
 
 router.get("/cron-subscription-expires", async (req, res) => {
   try {

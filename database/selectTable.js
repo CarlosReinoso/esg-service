@@ -1,3 +1,5 @@
+const config = require("../util/config")
+
 const connection = require("../scripts/connectToDatabase");
 
 async function selectTable(table) {
@@ -13,4 +15,5 @@ async function selectTable(table) {
   }
 }
 
+// selectTable(config.database.usersCoupons)
 module.exports = selectTable;

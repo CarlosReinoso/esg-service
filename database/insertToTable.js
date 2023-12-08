@@ -5,10 +5,11 @@ const {
   oneWeekBeforeExpires,
 } = require("../lib/formatDate");
 const connection = require("../scripts/connectToDatabase");
+const config = require("../util/config");
 
 async function insertToTable() {
   const insertQuery = `
-    INSERT INTO dev_users_coupons (
+    INSERT INTO ${config.database.usersCoupons} (
       full_name, 
       email, 
       coupon_code, 
@@ -19,7 +20,7 @@ async function insertToTable() {
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const date = "2023-06-14T00:00:00.000Z";
+  const date = "2023-06-24T00:00:00.000Z";
 
   const values = [
     "One Week",

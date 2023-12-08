@@ -62,5 +62,6 @@ async function createUsersCouponsTable() {
     console.error("Error:", error);
   }
 }
+
 createUsersCouponsTable();
 module.exports = createUsersCouponsTable;
