@@ -9,11 +9,7 @@ const {
 } = require("../lib/formatDate");
 const createTable = require("./createTable");
 const { orders } = require("../lib/queries/insert");
-
-const isValidCoupon = (couponCode) => {
-  const validCoupons = ["besg202275", "90esgbeca", "besg20211125"];
-  return validCoupons.includes(couponCode);
-};
+const { isValidCoupon } = require("../util/db/validation");
 
 async function createUsersCouponsTable() {
   try {
