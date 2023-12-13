@@ -6,6 +6,7 @@ const { where1and2WeeksAway } = require("../../lib/queries/where");
 const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail");
 
 router.get("/cron-subscription-expires", async (req, res) => {
+  console.log("🚀 ~ file: cronSubscriptionExpires.js:9 ~ router.get ~ req:");
   try {
     //Check if there are emails to send today
     const [scubscriptionExpiresReminder] = await connection.query(
@@ -41,6 +42,9 @@ router.get("/cron-subscription-expires", async (req, res) => {
   } catch (error) {
     console.error("Error executing cron job:", error);
     res.status(500).send("Internal Server Error");
+  } finally {
+    await connection.end();
+    console.log("MySQL connection closed.");
   }
 });
 
