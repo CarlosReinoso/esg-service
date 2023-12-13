@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const connection = require("../../scripts/connectToDatabase");
+const createConnection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
 const { where1and2WeeksAway } = require("../../lib/queries/where");
 const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail");
+const closeConnection = require("../../scripts/closeConnection");
 
 router.get("/cron-subscription-expires", async (req, res) => {
-  console.log("🚀 ~ file: cronSubscriptionExpires.js:9 ~ router.get ~ req:");
+  console.log(
+    "🚀 ~ file: cronSubscriptionExpires.js:53 ~ router.get ~ /cron-subscription-expires:"
+  );
+
+  const connection = createConnection();
   try {
     //Check if there are emails to send today
     const [scubscriptionExpiresReminder] = await connection.query(
@@ -43,8 +48,7 @@ router.get("/cron-subscription-expires", async (req, res) => {
     console.error("Error executing cron job:", error);
     res.status(500).send("Internal Server Error");
   } finally {
-    await connection.end();
-    console.log("MySQL connection closed.");
+    await closeConnection(connection);
   }
 });
 
