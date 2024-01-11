@@ -1,11 +1,10 @@
-const config = require("../util/config")
-
 const connection = require("../scripts/connectToDatabase");
+const { ENV } = require("../util/config");
 
 async function selectTable(table) {
   try {
     const select = `SELECT * FROM ??`;
-    const [rows, fields] = await connection.query(select, [table]);
+    const [rows, fields] = await connection(select, [table]);
     console.log("🚀 ~ file: selectTable.js:8 ~ selectTable ~ fields:", fields)
     console.log("🚀 ~ file: selectTable.js:8 ~ selectTable ~ rows:", rows)
     return rows;
@@ -15,5 +14,5 @@ async function selectTable(table) {
   }
 }
 
-// selectTable(config.database.cronExecutionStatus)
+// selectTable(ENV.usersCoupons)
 module.exports = selectTable;

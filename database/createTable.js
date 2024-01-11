@@ -1,6 +1,9 @@
-const connection = require("../scripts/connectToDatabase");
+const { emailTemplatesTableQuery } = require("../lib/queries/queries");
+const createConnection = require("../scripts/connectToDatabase");
+const config = require("../util/config");
 
 async function createTable(createQuery) {
+  const connection = createConnection();
   try {
     await connection.query(createQuery);
     console.log("Created table");
@@ -9,4 +12,5 @@ async function createTable(createQuery) {
   }
 }
 
+// createTable(emailTemplatesTableQuery);
 module.exports = createTable;

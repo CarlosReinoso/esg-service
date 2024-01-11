@@ -8,9 +8,9 @@ const {
   oneWeekBeforeExpires,
 } = require("../../lib/formatDate");
 const { orders } = require("../../lib/queries/insert");
-const currentConfig = require("../../util/config");
 const { isValidCoupon } = require("../../util/db/validation");
 const { addMessage } = require("../../util/db/addMessage");
+const { ENV } = require("../../util/config");
 
 router.post("/add-orders", async (req, res) => {
   if (req?.query?.api == process.env.PUBLIC_API_KEY) {
@@ -39,13 +39,13 @@ router.post("/add-orders", async (req, res) => {
       try {
         await connection.query(orders, values);
         console.log(
-          `Data inserted into ${currentConfig.database.usersCoupons} table:`,
+          `Data inserted into ${ENV.database.usersCoupons} table:`,
           values
         );
         return res.status(200).send("order added to db");
       } catch (error) {
         console.error(
-          `Error inserting data into ${currentConfig.database.usersCoupons} table:`,
+          `Error inserting data into ${ENV.database.usersCoupons} table:`,
           error
         );
         return res.status(500).send("Internal Server Error");

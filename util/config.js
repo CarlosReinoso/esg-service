@@ -6,16 +6,20 @@ const config = {
     database: {
       usersCoupons: "dev_users_coupons",
       cronExecutionStatus: "cron_execution_status",
+      emailTemplates: "dev_email_templates",
     },
   },
   prod: {
     database: {
       usersCoupons: "users_coupons",
       cronExecutionStatus: "cron_execution_status",
+      emailTemplates: "email_templates",
     },
   },
 };
 
-const currentConfig = environment === "dev" ? config.dev : config.prod;
+const ENV = environment === "dev" ? config.dev : config.prod;
 
-module.exports = currentConfig;
+const isDev = environment === "dev" ? true : false;
+
+module.exports = {ENV, isDev};

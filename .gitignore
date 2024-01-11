@@ -8,3 +8,5 @@ node_modules/
 users_table.csv
 
 oauth2_secret.json
+
+planetscale.pem
