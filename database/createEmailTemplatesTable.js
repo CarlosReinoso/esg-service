@@ -3,7 +3,7 @@ const {
   cronExecutionTableQuery,
 } = require("../lib/queries/queries");
 const createConnection = require("../scripts/connectToDatabase");
-const config = require("../util/config");
+const { ENV } = require("../util/config");
 const createTable = require("./createTable");
 
 async function createEmailTemplatesTable(createQuery) {

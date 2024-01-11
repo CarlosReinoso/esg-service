@@ -1,6 +1,6 @@
 const { emailTemplatesTableQuery } = require("../lib/queries/queries");
 const createConnection = require("../scripts/connectToDatabase");
-const config = require("../util/config");
+const { ENV } = require("../util/config");
 
 async function createTable(createQuery) {
   const connection = createConnection();
