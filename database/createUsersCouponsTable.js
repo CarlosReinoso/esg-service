@@ -1,4 +1,3 @@
-const connection = require("../scripts/connectToDatabase");
 const { createUsersCouponsTableQuery } = require("../lib/queries/queries");
 const axios = require("../lib/axiosConfig");
 const {

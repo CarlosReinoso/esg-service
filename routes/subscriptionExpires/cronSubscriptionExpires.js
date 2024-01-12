@@ -3,7 +3,9 @@ const router = express.Router();
 const createConnection = require("../../scripts/connectToDatabase");
 const { currentDateOnly } = require("../../util/currentaDate");
 const { where1and2WeeksAway } = require("../../lib/queries/where");
-const subscriptionWillExpireEmail = require("../../emails/subscriptionWillExpireEmail");
+const {
+  subscriptionWillExpireEmail,
+} = require("../../emails/subscriptionWillExpireEmail");
 const closeConnection = require("../../scripts/closeConnection");
 
 router.get("/cron-subscription-expires", async (req, res) => {
@@ -31,7 +33,7 @@ router.get("/cron-subscription-expires", async (req, res) => {
 
     if (statusRows.length === 0 && scubscriptionExpiresReminder.length != 0) {
       for (const student of scubscriptionExpiresReminder) {
-        subscriptionWillExpireEmail(student.full_name, student.email);
+        subscriptionWillExpireEmail(student.email);
       }
 
       // Update the execution status in the table

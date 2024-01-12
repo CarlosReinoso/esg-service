@@ -5,7 +5,7 @@ const { ENV } = require("../util/config");
 async function clearTable() {
   try {
     await connection.query(query.clearTable, [
-      ENV.cronExecutionStatus,
+      ENV.database.cronExecutionStatus,
     ]);
     console.log("cleared table");
   } catch (error) {

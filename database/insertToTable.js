@@ -9,7 +9,7 @@ const { ENV } = require("../util/config");
 
 async function insertToTable() {
   const insertQuery = `
-    INSERT INTO ${ENV.usersCoupons} (
+    INSERT INTO ${ENV.database.usersCoupons} (
       full_name, 
       email, 
       coupon_code, 
