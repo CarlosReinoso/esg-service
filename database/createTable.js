@@ -12,5 +12,5 @@ async function createTable(createQuery) {
   }
 }
 
-createTable(emailTemplatesTableQuery);
+// createTable(emailTemplatesTableQuery);
 module.exports = createTable;

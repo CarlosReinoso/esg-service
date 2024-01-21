@@ -23,6 +23,6 @@ async function createEmailTemplatesTable() {
   }
 }
 
-createEmailTemplatesTable();
+// createEmailTemplatesTable();
 
 module.exports = createEmailTemplatesTable;

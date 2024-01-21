@@ -62,5 +62,5 @@ async function createUsersCouponsTable() {
   }
 }
 
-createUsersCouponsTable();
+// createUsersCouponsTable();
 module.exports = createUsersCouponsTable;

@@ -11,5 +11,5 @@ async function clearTable(table) {
     console.error("Error creating table:", error);
   }
 }
-clearTable(ENV.database.usersCoupons);
+// clearTable(ENV.database.usersCoupons);
 module.exports = clearTable;
