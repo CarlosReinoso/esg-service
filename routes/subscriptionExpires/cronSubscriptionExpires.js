@@ -30,13 +30,15 @@ router.get("/cron-subscription-expires", async (req, res) => {
       "SELECT * FROM cron_execution_status WHERE executed_date = ?",
       [currentDateOnly]
     );
+    
+    //test > 0 vs === 0
+    if (statusRows.length > 0 && scubscriptionExpiresReminder.length != 0) {
 
-    if (statusRows.length === 0 && scubscriptionExpiresReminder.length != 0) {
       for (const student of scubscriptionExpiresReminder) {
-        subscriptionWillExpireEmail(student.email);
+        subscriptionWillExpireEmail(student.email, student.full_name);
       }
 
-      // Update the execution status in the table
+      //Update the execution status in the table
       await connection.query(
         "INSERT INTO cron_execution_status (executed_date, executed_count, emails_sent) VALUES (?, 1, ?)",
         [currentDateOnly, scubscriptionExpiresReminder.length]

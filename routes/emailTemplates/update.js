@@ -22,7 +22,7 @@ router.put("/:templateId", async (req, res) => {
   if (!!subject && !!body) {
     try {
       await connection.query(sql, [subject, body, templateId]);
-      addMessage(res, `template_id: ${templateId} updated `);
+      addMessage(res, `template_id: ${templateId} updated`);
     } catch (error) {
       console.error("Error executing cron job:", error);
       res.status(500).send("Internal Server Error");
