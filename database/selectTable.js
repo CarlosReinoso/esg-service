@@ -14,5 +14,5 @@ async function selectTable(table) {
   }
 }
 
-selectTable(ENV.database.usersCoupons);
+// selectTable(ENV.database.usersCoupons);
 module.exports = selectTable;
