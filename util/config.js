@@ -5,7 +5,7 @@ const config = {
   dev: {
     database: {
       usersCoupons: "dev_users_coupons",
-      cronExecutionStatus: "cron_execution_status",
+      cronExecutionStatus: "dev_cron_execution_status",
       emailTemplates: "dev_email_templates",
     },
   },
