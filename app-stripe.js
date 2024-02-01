@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -7,24 +7,15 @@ const publicRoutes = require("./routes/public/index");
 const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const { resolve } = require("path");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.use(bodyParser.json());
 
-
-
-const cors = require("cors");
-const { resolve } = require("path");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2020-08-27",
-  appInfo: {
-    // For sample support and debugging, not required for production:
-    name: "stripe-samples/accept-a-payment/custom-payment-flow",
-    version: "0.0.2",
-    url: "https://github.com/stripe-samples",
-  },
-});
-
 app.use(express.static(process.env.STATIC_DIR));
+
+
 app.use(
   express.json({
     // We need the raw body to verify webhook signatures.
@@ -42,9 +33,8 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  const path = resolve(process.env.STATIC_DIR + "/index.html");
-  res.sendFile(path);
+app.get("/oxxo", (req, res) => {
+  res.sendFile(__dirname + "/client/pages/oxxo.html");
 });
 
 app.get("/config", (req, res) => {
@@ -80,16 +70,6 @@ app.post("/create-payment-intent", async (req, res) => {
           payment_schedule: "sporadic",
           transaction_type: "personal",
         },
-      },
-    };
-  } else if (paymentMethodType === "konbini") {
-    /**
-     * Default value of the payment_method_options
-     */
-    params.payment_method_options = {
-      konbini: {
-        product_description: "Tシャツ",
-        expires_after_days: 3,
       },
     };
   } else if (paymentMethodType === "customer_balance") {
@@ -187,14 +167,6 @@ app.post("/webhook", async (req, res) => {
   }
   res.sendStatus(200);
 });
-
-
-
-app.use("/", publicRoutes);
-
-app.use(apiKeyMiddleware, apiLimiter);
-
-app.use("/", mainRoutes);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
