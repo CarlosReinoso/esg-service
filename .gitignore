@@ -2,7 +2,6 @@
 node_modules/
 
 # Ignore environment files
-.env
 
 # Ignore CSV files
 users_table.csv
@@ -12,3 +11,4 @@ oauth2_secret.json
 planetscale.pem
 
 format.sql
+config.bat
