@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Load the publishable key from the server. The publishable key
-    // is set in your .env file. In practice, most users hard code the
-    // publishable key when initializing the Stripe object.
     const {publishableKey} = await fetch('/config').then((r) => r.json());
     if (!publishableKey) {
       addMessage(
@@ -14,12 +11,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       apiVersion: '2020-08-27',
     });
   
-    // When the form is submitted...
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Make a call to the server to create a new
-      // payment intent and store its client_secret.
       const {error: backendError, clientSecret} = await fetch(
         '/create-payment-intent',
         {
