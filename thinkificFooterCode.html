@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   if (window.location.pathname === "/pages/inscribete" || window.location.pathname === "/courses/test-course") {
+      console.log("🚀 ~ window.location.pathname:", window.location.pathname);
+      console.log(
+        "🚀 ~ window.location.pathname true:",
+        window.location.pathname === "/courses/test-course"
+      );
+      if (window.location.pathname === "/courses/test-course") {
+        const button = document.querySelector("#oxxo-payment");
+        console.log("🚀 ~ button:", button)
+
+        const scriptTag = document.createElement("script");
+        console.log("🚀 ~ scriptTag:", scriptTag)
+        scriptTag.async = true;
+        scriptTag.src = "https://js.stripe.com/v3/buy-button.js";
+
+        // Create a new div element for stripe-buy-button
+        const stripeBuyButton = document.createElement("stripe-buy-button");
+        stripeBuyButton.setAttribute(
+          "buy-button-id",
+          "buy_btn_1Ogw67JxzH8PS1O3vH9Y8ZTd"
+        );
+        stripeBuyButton.setAttribute(
+          "publishable-key",
+          "pk_test_51I48B0JxzH8PS1O3gUEQ2oU7qu66nDmOCoUCb7kBgYfnfve9gdJwtxgKD3ZQYRJop3cdzkOtCQ1zh04mcu0RyNm000pkp9zDQP"
+        );
+
+        // Append the script and stripe-buy-button elements below the selected element
+        element.parentNode.insertBefore(scriptTag, element.nextSibling);
+        element.parentNode.insertBefore(stripeBuyButton, element.nextSibling);
+      }
+    </script>
+  </body>
+</html>
