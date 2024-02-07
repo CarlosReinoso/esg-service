@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const createConnection = require("../../scripts/connectToDatabase");
 const closeConnection = require("../../scripts/closeConnection");
+const { ENV } = require("../../util/config");
 
 router.get("/subscription-expires", async (req, res) => {
   console.log(
@@ -10,11 +11,12 @@ router.get("/subscription-expires", async (req, res) => {
   const connection = createConnection();
   try {
     const [cronExecutionStatus] = await connection.query(
-      `SELECT * FROM cron_execution_status
+      `SELECT * FROM ${ENV.database.cronExecutionStatus}
        ORDER BY executed_date DESC
        LIMIT 20`
     );
-    res.json({ cronExecutionStatus });
+    console.log("🚀 ~ router.get ~ cronExecutionStatus:", cronExecutionStatus)
+    res.status(200).json({ cronExecutionStatus });
   } catch (error) {
     console.error("Error executing cron job:", error);
     res.status(500).send("Internal Server Error");

@@ -17,7 +17,7 @@ router.get("/today-expiration-emails", async (req, res) => {
       [currentDateOnly, currentDateOnly]
     );
 
-    res.json({ scubscriptionExpiresReminder });
+    res.status(200).json({ scubscriptionExpiresReminder });
   } catch (error) {
     console.error("Error executing cron job:", error);
     res.status(500).send("Internal Server Error");
