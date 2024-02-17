@@ -12,11 +12,9 @@
 		"axios": "^1.6.2",
 		"body-parser": "^1.20.2",
 		"cors": "^2.8.5",
-		"csv-parser": "^3.0.0",
 		"dotenv": "^16.3.1",
 		"express": "^4.18.2",
 		"express-rate-limit": "^7.1.5",
-		"fs": "0.0.1-security",
 		"google-auth-library": "^9.4.1",
 		"googleapis": "^129.0.0",
 		"mysql2": "^3.6.5",
@@ -26,10 +24,5 @@
 	},
 	"engines": {
 		"node": ">=14"
-	},
-	"devDependencies": {
-		"@types/node": "^20.10.4",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.3.3"
 	}
 }
