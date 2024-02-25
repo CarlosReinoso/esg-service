@@ -6,7 +6,7 @@ const apiKeyMiddleware = (req, res, next) => {
   const apiKey = req.header("X-API-Key");
 
   if (excludedEndpoints(req)) {
-    next();
+    return next();
   }
 
   if (!apiKey || apiKey !== process.env.SERVER_API_KEY) {
