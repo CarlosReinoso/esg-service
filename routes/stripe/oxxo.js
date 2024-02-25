@@ -35,10 +35,6 @@ router.post(
     switch (event.type) {
       case "checkout.session.completed":
         const checkoutSessionCompleted = event.data.object;
-        console.log(
-          "🚀 ~ app.post ~ checkoutSessionCompleted:",
-          checkoutSessionCompleted
-        );
         break;
       case "checkout.session.async_payment_succeeded":
         const checkoutSession = event.data.object;
