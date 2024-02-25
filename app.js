@@ -12,7 +12,7 @@ app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
 
 app.use(bodyParser.json());
 
-app.use("/", apiKeyMiddleware, publicRoutes);
+app.use("/", publicRoutes);
 
 app.use(apiKeyMiddleware, apiLimiter);
 
