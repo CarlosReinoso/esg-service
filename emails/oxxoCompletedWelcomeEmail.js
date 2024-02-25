@@ -29,4 +29,5 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
     }
   );
 };
+
 module.exports = oxxoCompletedWelcomeEmail;

@@ -21,5 +21,6 @@ const config = {
 const ENV = environment === "dev" ? config.dev : config.prod;
 
 const isDev = environment === "dev" ? true : false;
+const isProd = environment === "prod" ? true : false;
 
-module.exports = {ENV, isDev};
+module.exports = { ENV, isDev, isProd };
