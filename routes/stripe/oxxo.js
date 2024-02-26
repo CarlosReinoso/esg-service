@@ -13,17 +13,6 @@ router.post("/oxxo-webhook", (req, res) => {
   const sig = req.headers["stripe-signature"];
 
   let event;
-  console.log(
-    "🚀 ~ router.post ~ process.env.STRIPE_WEBHOOK_SECRET :",
-    process.env.STRIPE_WEBHOOK_SECRET
-  );
-  console.log("🚀 ~ router.post ~ isProd:", isProd);
-  console.log(
-    "🚀 ~ router.post ~ isProd ? process.env.STRIPE_WEBHOOK_SECRET : process.env.STRIPE_WEBHOOK_SECRET_CLI :",
-    isProd
-      ? process.env.STRIPE_WEBHOOK_SECRET
-      : process.env.STRIPE_WEBHOOK_SECRET_CLI
-  );
 
   try {
     event = stripe.webhooks.constructEvent(
