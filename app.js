@@ -8,7 +8,15 @@ const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 const bodyParser = require("body-parser");
 
-app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
+// app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
+
+app.use(express.json({
+  verify: function(req, res, buf, encoding) {
+    if (req.originalUrl.startsWith('/stripe/oxxo-webhook')) {
+      req.rawBody = buf;
+    }
+  }
+}));
 
 app.use(bodyParser.json());
 
