@@ -10,15 +10,26 @@ const bodyParser = require("body-parser");
 
 // app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
 
-app.use(express.json({
-  verify: function(req, res, buf, encoding) {
-    if (req.originalUrl.startsWith('/stripe/oxxo-webhook')) {
-      req.rawBody = buf;
-    }
-  }
-}));
+// app.use(
+//   express.json({
+//     verify: function (req, res, buf, encoding) {
+//       if (req.originalUrl.startsWith("/stripe/oxxo-webhook")) {
+//         req.rawBody = buf;
+//       }
+//     },
+//   })
+// );
 
-app.use(bodyParser.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === "/stripe/oxxo-webhook") {
+    console.log("🚀 ~ app.use ~ req.originalUrl:", req.originalUrl)
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
+// app.use(bodyParser.json());
 
 app.use("/", publicRoutes);
 

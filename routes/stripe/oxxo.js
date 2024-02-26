@@ -30,6 +30,9 @@ router.post("/oxxo-webhook", (req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  // Successfully constructed event
+  console.log("✅ Success:", event.id);
+
   // Handle the event
   //Jenny Rosen
   // jr.succeed_immediately@example.com
