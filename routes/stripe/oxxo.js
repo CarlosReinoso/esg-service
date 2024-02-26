@@ -11,17 +11,14 @@ const stripe = require("stripe")(
 
 router.post("/oxxo-webhook", (req, res) => {
   const sig = req.headers["stripe-signature"];
-  console.log(`Type of req.rawBody: ${typeof req.rawBody}`); // Should log 'object'
-  console.log(`Is Buffer: ${Buffer.isBuffer(req.rawBody)}`); // Should log 'true' for raw bodies
 
   let event;
 
-  console.log("🚀 ~ router.post ~ req.body:", req.body)
   try {
     event = stripe.webhooks.constructEvent(
       req.body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      isProd ? process.env.STRIPE_WEBHOOK_SECRET : process.env.STRIPE_WEBHOOK_SECRET_CLI  //each webhook secret is unique use  
     );
   } catch (err) {
     // On error, log and return the error message
