@@ -2,6 +2,7 @@ const createTransport = require("../lib/nodemailer");
 const { EMAIL } = require("../constants/email");
 const createConnection = require("../scripts/connectToDatabase");
 const { ENV } = require("../util/config");
+console.log("🚀 ~ ENV:", ENV)
 
 const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   const transport = await createTransport();
@@ -12,6 +13,7 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   WHERE template_name = 'oxxoComplete'
   `;
   const [row] = await connection.query(sql);
+  console.log("🚀 ~ oxxoCompletedWelcomeEmail ~ row:", row)
 
   const emailBody = row[0].body;
   const emailSubject = row[0].subject;

@@ -37,7 +37,6 @@ router.post("/oxxo-webhook", (req, res) => {
   switch (event.type) {
     case "checkout.session.completed":
       const checkoutSessionCompleted = event.data.object;
-      oxxoCompletedWelcomeEmail("carlosrewebs@gmail.com", "Carlos");
       break;
     case "checkout.session.async_payment_succeeded":
       const checkoutSession = event.data.object;
