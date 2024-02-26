@@ -8,7 +8,7 @@ const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 const bodyParser = require("body-parser");
 
-// app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
+app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
 
 // app.use(
 //   express.json({
@@ -20,14 +20,16 @@ const bodyParser = require("body-parser");
 //   })
 // );
 
-app.use((req, res, next) => {
-  if (req.originalUrl === "/stripe/oxxo-webhook") {
-    console.log("🚀 ~ app.use ~ req.originalUrl:", req.originalUrl)
-    next();
-  } else {
-    express.json()(req, res, next);
-  }
-});
+// app.use((req, res, next) => {
+//   console.log("🚀 ~ app.use ~ req:", req)
+//   console.log("🚀 ~ app.use ~ req.originalUrl:", req.originalUrl);
+//   if (req.originalUrl === "/stripe/oxxo-webhook") {
+//     console.log("🚀 ~ app.use ~ req.originalUrl:", req.originalUrl);
+//     next();
+//   } else {
+//     express.json()(req, res, next);
+//   }
+// });
 
 // app.use(bodyParser.json());
 
