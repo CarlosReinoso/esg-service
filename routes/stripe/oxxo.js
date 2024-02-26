@@ -16,9 +16,10 @@ router.post("/oxxo-webhook", (req, res) => {
 
   let event;
 
+  console.log("🚀 ~ router.post ~ req.body:", req.body)
   try {
     event = stripe.webhooks.constructEvent(
-      req.rawBody,
+      req.body,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
