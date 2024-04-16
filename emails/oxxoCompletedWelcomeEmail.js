@@ -1,8 +1,7 @@
 const createTransport = require("../lib/nodemailer");
 const { EMAIL } = require("../constants/email");
-const createConnection = require("../scripts/connectToDatabase");
 const { ENV } = require("../util/config");
-console.log("🚀 ~ ENV:", ENV)
+const createConnection = require("../scripts/connectToDatabase");
 
 const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   const transport = await createTransport();
@@ -13,12 +12,21 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   WHERE template_name = 'oxxoComplete'
   `;
   const [row] = await connection.query(sql);
-  console.log("🚀 ~ oxxoCompletedWelcomeEmail ~ row:", row)
+  console.log("🚀 ~ oxxoCompletedWelcomeEmail ~ row:", row);
 
   const emailBody = row[0].body;
   const emailSubject = row[0].subject;
 
   const bodyToSend = emailBody.replace(/\*name\*/g, fullName);
+
+  const mailOptions = {
+    from: '"Sender Name" <your-email@yourprovider.com>', // Sender address
+    to: "recipient1@example.com, recipient2@example.com", // Primary recipients
+    bcc: "bcc-recipient1@example.com, bcc-recipient2@example.com", // BCC recipients
+    subject: "Nodemailer BCC Test", // Subject line
+    text: "This is a test email sent with BCC using Nodemailer.", // Plain text body
+    html: "<b>This is a test email sent with BCC using Nodemailer.</b>", // HTML body
+  };
 
   transport.sendMail(
     { EMAIL, subject: emailSubject, to, html: bodyToSend },
@@ -32,4 +40,5 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   );
 };
 
+// oxxoCompletedWelcomeEmail("carlosrwebs@gmail.com", "carlos");
 module.exports = oxxoCompletedWelcomeEmail;
