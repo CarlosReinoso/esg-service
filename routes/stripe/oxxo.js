@@ -20,13 +20,15 @@ router.post("/oxxo-webhook", (req, res) => {
       sig,
       isProd
         ? process.env.STRIPE_WEBHOOK_SECRET
-        : process.env.STRIPE_WEBHOOK_SECRET_CLI //each webhook secret is unique use
+        : process.env.STRIPE_TEST_WEBHOOK_SECRET
     );
   } catch (err) {
     // On error, log and return the error message
     console.log(`Error message: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+        
+      console.log("🚀 ~ router.post ~ sig:", sig)
 
   // Successfully constructed event
   console.log("✅ Success:", event.id);

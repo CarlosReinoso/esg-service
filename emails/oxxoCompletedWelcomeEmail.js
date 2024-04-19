@@ -1,43 +1,50 @@
-const createTransport = require("../lib/nodemailer");
 const { EMAIL } = require("../constants/email");
-const { ENV } = require("../util/config");
-const createConnection = require("../scripts/connectToDatabase");
+const supabase = require("../lib/supabase");
+const { ENV, isProd } = require("../util/config");
+const createTransport = require("../lib/nodemailer");
 
 const oxxoCompletedWelcomeEmail = async (to, fullName) => {
-  const transport = await createTransport();
+  try {
+    const transport = await createTransport();
 
-  const connection = createConnection();
-  const sql = `
-  SELECT * from ${ENV.database.emailTemplates} 
-  WHERE template_name = 'oxxoComplete'
-  `;
-  const [row] = await connection.query(sql);
-  console.log("🚀 ~ oxxoCompletedWelcomeEmail ~ row:", row);
+    const { data, error } = await supabase
+      .from(ENV.database.emailTemplates)
+      .select("*")
+      .eq("template_name", "oxxoComplete")
+      .single(); // Ensures that only one record is returned
 
-  const emailBody = row[0].body;
-  const emailSubject = row[0].subject;
+    const emailBody = data.body;
+    const emailSubject = data.subject;
 
-  const bodyToSend = emailBody.replace(/\*name\*/g, fullName);
+    const bodyToSend = emailBody.replace(/\*name\*/g, fullName);
 
-  const mailOptions = {
-    from: '"Sender Name" <your-email@yourprovider.com>', // Sender address
-    to: "recipient1@example.com, recipient2@example.com", // Primary recipients
-    bcc: "bcc-recipient1@example.com, bcc-recipient2@example.com", // BCC recipients
-    subject: "Nodemailer BCC Test", // Subject line
-    text: "This is a test email sent with BCC using Nodemailer.", // Plain text body
-    html: "<b>This is a test email sent with BCC using Nodemailer.</b>", // HTML body
-  };
-
-  transport.sendMail(
-    { EMAIL, subject: emailSubject, to, html: bodyToSend },
-    (err, _) => {
-      if (err) {
-        console.error("Error sending email:", err);
-      } else {
-        console.log("Email sent:", to);
+    transport.sendMail(
+      {
+        EMAIL,
+        subject: emailSubject,
+        to,
+        html: bodyToSend,
+        bcc: isProd ? "admin@esgweb.org" : "carlosrwebs@gamil.com",
+      },
+      (err, _) => {
+        if (err) {
+          console.error("Error sending email:", err);
+        } else {
+          console.log("Email sent:", to);
+        }
       }
+    );
+
+    if (error) {
+      throw error;
     }
-  );
+
+    console.log("Retrieved row:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching email template:", error);
+    return null;
+  }
 };
 
 // oxxoCompletedWelcomeEmail("carlosrwebs@gmail.com", "carlos");

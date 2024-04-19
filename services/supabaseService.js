@@ -1,5 +1,3 @@
-// services/supabaseService.js
-
 const supabase = require("../lib/supabase");
 
 async function fetchData(tableName) {
@@ -14,8 +12,8 @@ async function fetchData(tableName) {
   return data;
 }
 
-fetchData("test");
-fetchData("dev_email_templates");
+// fetchData("test");
+// fetchData("dev_email_templates");
 
 module.exports = {
   fetchData,
