@@ -1,23 +1,23 @@
 require("dotenv").config();
-const { EMAIL } = require("../constants/email");
+const { EMAIL, TEST_EMAIL } = require("../constants/email");
 const supabase = require("../lib/supabase");
 const { ENV, isProd } = require("../util/config");
 const createTransport = require("../lib/nodemailer");
 
-const oxxoCompletedWelcomeEmail = async (to, fullName) => {
+const oxxoMonthlyPaymentEmailReminder = async (to, firstName) => {
   try {
     const transport = await createTransport();
 
     const { data, error } = await supabase
       .from(ENV.database.emailTemplates)
       .select("*")
-      .eq("template_name", "oxxoComplete")
+      .eq("template_name", "oxxoMonthlyPaymentEmailReminder")
       .single(); // Ensures that only one record is returned
 
     const emailBody = data.body;
     const emailSubject = data.subject;
 
-    const bodyToSend = emailBody.replace(/\*name\*/g, fullName);
+    const bodyToSend = emailBody.replace(/\*name\*/g, firstName.trim());
 
     transport.sendMail(
       {
@@ -40,7 +40,6 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
       throw error;
     }
 
-    console.log("Retrieved row:", data);
     return data;
   } catch (error) {
     console.error("Error fetching email template:", error);
@@ -48,5 +47,5 @@ const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   }
 };
 
-// oxxoCompletedWelcomeEmail("carlosrwebs@gmail.com", "carlos");
-module.exports = oxxoCompletedWelcomeEmail;
+// oxxoMonthlyPaymentEmailReminder("carlosrwebs@gmail.com", "carlos ");
+module.exports = oxxoMonthlyPaymentEmailReminder;

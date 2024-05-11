@@ -4,6 +4,7 @@ const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 
 const EMAIL = "contacto@esgweb.org";
+const TEST_EMAIL = "carlosrwebs@gmail.com";
 
 module.exports = {
   CLIENT_ID,
@@ -11,4 +12,5 @@ module.exports = {
   REFRESH_TOKEN,
   REDIRECT_URI,
   EMAIL,
+  TEST_EMAIL,
 };
