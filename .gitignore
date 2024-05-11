@@ -14,3 +14,6 @@ planetscale.pem
 format.sql
 
 addEnvs.js
+
+archive/
+tests/

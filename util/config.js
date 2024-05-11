@@ -7,6 +7,7 @@ const config = {
       usersCoupons: "dev_users_coupons",
       cronExecutionStatus: "dev_cron_execution_status",
       emailTemplates: "dev_email_templates",
+      customers: "dev_customers"
     },
   },
   prod: {
@@ -14,6 +15,7 @@ const config = {
       usersCoupons: "users_coupons",
       cronExecutionStatus: "cron_execution_status",
       emailTemplates: "email_templates",
+      customers: "customers"
     },
   },
 };
