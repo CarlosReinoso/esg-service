@@ -7,9 +7,9 @@ const publicRoutes = require("./routes/public/index");
 const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 const bodyParser = require("body-parser");
-const isSecondOrThirdMondayCronJob = require("./util/isSecondOrThirdMondayCronJob");
+// const isSecondOrThirdMondayCronJob = require("./util/isSecondOrThirdMondayCronJob");
 
-isSecondOrThirdMondayCronJob()
+// isSecondOrThirdMondayCronJob()
 
 app.use("/stripe/oxxo-webhook", express.raw({ type: "application/json" }));
 
