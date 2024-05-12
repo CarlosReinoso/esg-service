@@ -8,6 +8,13 @@ const { TEST_EMAIL } = require("../constants/email");
 async function oxxoEmailReminderCronJob() {
   //"*/3 * * * * *" every 3 seconds
   //"0 0 9 * * *"  9am everyday
+  cron.schedule("0 */10 * * * *", async () => {
+    console.log("🚀 ~ cron.schedule every ten minutes: 0 */10 * * * *");
+  });
+  cron.schedule("0 0 9 * * *", async () => {
+    oxxoMonthlyPaymentEmailReminder(TEST_EMAIL, "TEST CRON")
+  });
+
   cron.schedule("0 0 9 * * *", async () => {
     if (isSecondOrThirdMonday()) {
       console.log("Running task, it is the 2nd or 3rd Monday of the month");
