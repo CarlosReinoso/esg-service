@@ -1,0 +1,7 @@
+const OXXO_GROUP_ID = 328092;
+const OXXO_TEST_GROUP_ID = 344236;
+
+module.exports = {
+  OXXO_GROUP_ID,
+  OXXO_TEST_GROUP_ID
+};

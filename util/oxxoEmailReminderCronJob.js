@@ -1,18 +1,34 @@
 const cron = require("node-cron");
-const axios = require("axios");
-const { thinkificAPI } = require("../lib/axiosConfig");
-const oxxoMonthlyPaymentEmailReminder = require("../emails/oxxoMonthlyPaymentEmailReminder");
+const oxxoMonthlyPaymentEmailReminder = require("../emails/oxxo/oxxoMonthlyPaymentEmailReminder");
 const { isProd } = require("./config");
 const { TEST_EMAIL } = require("../constants/email");
+const {
+  fetchOxxoUsersFromGroup,
+} = require("../services/oxxoServices");
+const isSecondOrThirdMonday = require("./isSecondOrThirdMonday");
+const { OXXO_TEST_GROUP_ID } = require("../constants/oxxoConstants");
 
 async function oxxoEmailReminderCronJob() {
+  console.log(
+    "🚀 ~ oxxoEmailReminderCronJob ~ oxxoEmailReminderCronJob: START FUNCTION"
+  );
+  console.log("🚀 ~ cron.schedule ~ isSecondOrThirdMonday():", isSecondOrThirdMonday())
+  
   //"*/3 * * * * *" every 3 seconds
   //"0 0 9 * * *"  9am everyday
-  cron.schedule("0 */10 * * * *", async () => {
-    console.log("🚀 ~ cron.schedule every ten minutes: 0 */10 * * * *");
-  });
   cron.schedule("0 0 9 * * *", async () => {
-    oxxoMonthlyPaymentEmailReminder(TEST_EMAIL, "TEST CRON")
+    console.log("🚀 ~ cron.schedule ~ 9am :");
+    try {
+      const allOxxoUsers = await fetchOxxoUsersFromGroup(OXXO_TEST_GROUP_ID); //OXXOTest
+      for (const oxxoUser of allOxxoUsers) {
+        oxxoMonthlyPaymentEmailReminder(
+          isProd ? oxxoUser.email : TEST_EMAIL,
+          oxxoUser.first_name
+        );
+      }
+    } catch (error) {
+      console.log("🚀 ~ cron.schedule ~ error:", error);
+    }
   });
 
   cron.schedule("0 0 9 * * *", async () => {
@@ -20,20 +36,7 @@ async function oxxoEmailReminderCronJob() {
       console.log("Running task, it is the 2nd or 3rd Monday of the month");
 
       try {
-        let allOxxoUsers = [];
-        let currentPage = 1;
-
-        do {
-          const response = await thinkificAPI.get(
-            `/users?page=1&limit=25&query%5Bgroup_id%5D=328092'`
-          ); //id for oxxo group
-
-          const oxxoUser = response.data.items;
-          allOxxoUsers = allOxxoUsers.concat(oxxoUser);
-
-          currentPage = response.data.meta.pagination.next_page;
-        } while (currentPage);
-
+        const allOxxoUsers = await fetchOxxoUsersFromGroup(OXXO_GROUP_ID); //OXXO
         for (const oxxoUser of allOxxoUsers) {
           oxxoMonthlyPaymentEmailReminder(
             isProd ? oxxoUser.email : TEST_EMAIL,
@@ -41,7 +44,7 @@ async function oxxoEmailReminderCronJob() {
           );
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error processing OXXO users:", error);
       }
     } else {
       console.log(

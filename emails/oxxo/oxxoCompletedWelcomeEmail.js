@@ -1,8 +1,8 @@
 require("dotenv").config();
-const { EMAIL } = require("../constants/email");
-const supabase = require("../lib/supabase");
-const { ENV, isProd } = require("../util/config");
-const createTransport = require("../lib/nodemailer");
+const { EMAIL, TEST_EMAIL } = require("../../constants/email");
+const supabase = require("../../lib/supabase");
+const { ENV, isProd } = require("../../util/config");
+const createTransport = require("../../lib/nodemailer");
 
 const oxxoCompletedWelcomeEmail = async (to, fullName) => {
   try {
