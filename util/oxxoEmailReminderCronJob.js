@@ -2,18 +2,15 @@ const cron = require("node-cron");
 const oxxoMonthlyPaymentEmailReminder = require("../emails/oxxo/oxxoMonthlyPaymentEmailReminder");
 const { isProd } = require("./config");
 const { TEST_EMAIL } = require("../constants/email");
-const {
-  fetchOxxoUsersFromGroup,
-} = require("../services/oxxoServices");
-const isSecondOrThirdMonday = require("./isSecondOrThirdMonday");
+const { fetchOxxoUsersFromGroup } = require("../services/oxxoServices");
+const isThirdOrFourthMonday = require("./isThirdOrFourthMonday");
 const { OXXO_TEST_GROUP_ID } = require("../constants/oxxoConstants");
 
 async function oxxoEmailReminderCronJob() {
   console.log(
     "🚀 ~ oxxoEmailReminderCronJob ~ oxxoEmailReminderCronJob: START FUNCTION"
   );
-  console.log("🚀 ~ cron.schedule ~ isSecondOrThirdMonday():", isSecondOrThirdMonday())
-  
+
   //"*/3 * * * * *" every 3 seconds
   //"0 0 9 * * *"  9am everyday
   cron.schedule("0 0 9 * * *", async () => {
@@ -32,7 +29,7 @@ async function oxxoEmailReminderCronJob() {
   });
 
   cron.schedule("0 0 9 * * *", async () => {
-    if (isSecondOrThirdMonday()) {
+    if (isThirdOrFourthMonday()) {
       console.log("Running task, it is the 2nd or 3rd Monday of the month");
 
       try {

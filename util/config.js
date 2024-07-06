@@ -7,7 +7,8 @@ const config = {
       usersCoupons: "dev_users_coupons",
       cronExecutionStatus: "dev_cron_execution_status",
       emailTemplates: "dev_email_templates",
-      customers: "dev_customers"
+      customers: "dev_customers",
+      oxxoRepaymentEmailLog: "dev_oxxo_repayment_email_log"
     },
   },
   prod: {
@@ -15,7 +16,8 @@ const config = {
       usersCoupons: "users_coupons",
       cronExecutionStatus: "cron_execution_status",
       emailTemplates: "email_templates",
-      customers: "customers"
+      customers: "customers",
+      oxxoRepaymentEmailLog: "oxxo_repayment_email_log"
     },
   },
 };

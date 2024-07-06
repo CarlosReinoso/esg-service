@@ -10,3 +10,12 @@ CREATE TABLE IF NOT EXISTS customers (
   phone_number VARCHAR(255) NOT NULL,
   created_at TIMESTAMP
 );
+
+-- UAT: dev_oxxo_repayment_emails_log
+CREATE TABLE IF NOT EXISTS oxxo_repayment_email_log (
+  id VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  emails_sent INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
