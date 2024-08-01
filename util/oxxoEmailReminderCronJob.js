@@ -9,6 +9,7 @@ const {
   OXXO_GROUP_ID,
 } = require("../constants/oxxoConstants");
 const isDayTest = require("./isDayTest");
+const supabase = require("../lib/supabase");
 
 async function oxxoEmailReminderCronJob() {
   //"*/3 * * * * *" every 3 seconds
@@ -42,6 +43,18 @@ async function oxxoEmailReminderCronJob() {
             isProd ? oxxoUser.email : TEST_EMAIL,
             oxxoUser.first_name
           );
+        }
+
+        const logResult = await supabase
+          .from("dev_oxxo_repayment_email_log")
+          .insert([
+            {
+              emails_sent: allOxxoUsers.length,
+            },
+          ]);
+
+        if (logResult.error) {
+          console.error("Error logging email action:", logResult.error);
         }
       } catch (error) {
         console.error("Error processing OXXO users:", error);

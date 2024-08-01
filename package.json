@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js",
+    "dev": "nodemon app.js",
     "test": "jest"
   },
   "dependencies": {

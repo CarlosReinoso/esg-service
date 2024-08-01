@@ -12,8 +12,6 @@ async function fetchData(tableName) {
   return data;
 }
 
-// fetchData("test");
-// fetchData("dev_email_templates");
 
 module.exports = {
   fetchData,

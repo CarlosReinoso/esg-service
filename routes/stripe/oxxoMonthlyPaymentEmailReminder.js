@@ -15,26 +15,26 @@ const supabase = require("../../lib/supabase");
 router.get("/monthly-repayment", async (req, res) => {
   console.log("🚀 ~ router.get ~ monthly-repayment:");
   try {
-    const allOxxoUsers = await fetchOxxoUsersFromGroup(
-      isProd ? OXXO_GROUP_ID : OXXO_TEST_GROUP_ID
-    ); //OXXO
-    // for (const oxxoUser of allOxxoUsers) {
-    //   oxxoMonthlyPaymentEmailReminder(
-    //     isProd ? oxxoUser.email : TEST_EMAIL,
-    //     oxxoUser.first_name
-    //   );
-    // }
+    try {
+      const allOxxoUsers = await fetchOxxoUsersFromGroup(OXXO_TEST_GROUP_ID); //OXXO
+      for (const oxxoUser of allOxxoUsers) {
+        oxxoMonthlyPaymentEmailReminder(
+          isProd ? oxxoUser.email : TEST_EMAIL,
+          oxxoUser.first_name
+        );
+      }
 
-    const logResult = await supabase
-      .from("oxxo_repayment_email_log")
-      .insert([
+      const logResult = await supabase.from("oxxo_repayment_email_log").insert([
         {
-          emails_sent: allOxxoUsers.length, 
+          emails_sent: allOxxoUsers.length,
         },
       ]);
 
-    if (logResult.error) {
-      console.error("Error logging email action:", logResult.error);
+      if (logResult.error) {
+        console.error("Error logging email action:", logResult.error);
+      }
+    } catch (error) {
+      console.error("Error processing OXXO users:", error);
     }
 
     console.log("Have sent emails reminders");
