@@ -16,7 +16,7 @@ router.get("/monthly-repayment", async (req, res) => {
   console.log("🚀 ~ router.get ~ monthly-repayment:");
   try {
     try {
-      const allOxxoUsers = await fetchOxxoUsersFromGroup(OXXO_TEST_GROUP_ID); //OXXO
+      const allOxxoUsers = await fetchOxxoUsersFromGroup(OXXO_GROUP_ID); //OXXO
       for (const oxxoUser of allOxxoUsers) {
         oxxoMonthlyPaymentEmailReminder(
           isProd ? oxxoUser.email : TEST_EMAIL,
