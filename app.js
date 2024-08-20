@@ -8,6 +8,7 @@ const apiKeyMiddleware = require("./middleware/apiKey");
 const apiLimiter = require("./middleware/rateLimit");
 const bodyParser = require("body-parser");
 const oxxoEmailReminderCronJob = require("./util/oxxoEmailReminderCronJob");
+const keepSupabaseAlive = require("./util/keepSupabaseAlive");
 
 oxxoEmailReminderCronJob()
 keepSupabaseAlive()
