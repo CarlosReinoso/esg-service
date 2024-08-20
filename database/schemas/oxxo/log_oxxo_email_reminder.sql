@@ -26,3 +26,5 @@ ALTER TABLE public.oxxo_repayment_email_log
 ALTER COLUMN id SET DEFAULT nextval('public.oxxo_repayment_email_log_id_seq');
 
 
+
+
