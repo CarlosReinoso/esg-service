@@ -2,7 +2,6 @@
 node_modules/
 
 # Ignore environment files
-.env
 
 # Ignore CSV files
 users_table.csv
@@ -17,3 +16,4 @@ addEnvs.js
 
 archive/
 tests/
+config.bat
